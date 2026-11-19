@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
 
 class ProductController extends Controller
@@ -63,20 +63,26 @@ class ProductController extends Controller
 
     public function index(Request $r)
     {
-        $admin = $r->attributes->get("admin_authenticated") === true;
-        if (!$admin && $r->bearerToken()) {
-            try { JWTAuth::parseToken()->authenticate(); $admin = true; } catch (\Throwable) { }
+        $admin = $r->attributes->get('admin_authenticated') === true;
+        if (! $admin && $r->bearerToken()) {
+            try {
+                JWTAuth::parseToken()->authenticate();
+                $admin = true;
+            } catch (\Throwable) {
+            }
         }
+
         return Product::query()
             ->when($admin && $r->filled('status'), fn ($q) => $q->where('status', $r->status))
-            ->when(!$admin, fn ($q) => $q->where('status', 'published'))
+            ->when(! $admin, fn ($q) => $q->where('status', 'published'))
             ->when($r->filled('category'), fn ($q) => $q->where('category', $r->category))
+            ->when($r->filled('collection'), fn ($q) => $q->where('collection_name', $r->collection))
             ->when($r->filled('search'), fn ($q) => $q->where(fn ($x) => $x
                 ->where('name', 'like', '%'.$r->search.'%')
                 ->orWhere('brand', 'like', '%'.$r->search.'%')
                 ->orWhere('category', 'like', '%'.$r->search.'%')))
             ->latest()
-            ->paginate($admin ? min(max((int) $r->get('per_page', 10), 1), 50) : 50);
+            ->paginate(min(max((int) $r->get('per_page', 10), 1), 50));
     }
 
     public function import(Request $r)
@@ -85,11 +91,13 @@ class ProductController extends Controller
         $handle = fopen($r->file('file')->getRealPath(), 'r');
         $headers = array_map(fn ($v) => trim((string) $v), fgetcsv($handle));
         $allowed = ['name', 'brand', 'price_idr', 'category', 'collection_name', 'spec', 'affiliate_url', 'status'];
-        abort_unless($headers && !array_diff($allowed, $headers), 422, 'Kolom CSV wajib: '.implode(', ', $allowed));
+        abort_unless($headers && ! array_diff($allowed, $headers), 422, 'Kolom CSV wajib: '.implode(', ', $allowed));
         $created = 0;
         DB::transaction(function () use ($handle, $headers, $allowed, &$created) {
             while (($row = fgetcsv($handle)) !== false) {
-                if (count(array_filter($row, fn ($v) => trim((string) $v) !== '')) === 0) continue;
+                if (count(array_filter($row, fn ($v) => trim((string) $v) !== '')) === 0) {
+                    continue;
+                }
                 $values = array_combine($headers, array_pad($row, count($headers), null));
                 $request = Request::create('/', 'POST', array_intersect_key($values, array_flip($allowed)));
                 Product::create($this->data($request));
@@ -97,6 +105,7 @@ class ProductController extends Controller
             }
         });
         fclose($handle);
+
         return ['imported' => $created];
     }
 
@@ -113,12 +122,14 @@ class ProductController extends Controller
     public function update(Request $r, Product $product)
     {
         $product->update($this->data($r, $product));
+
         return $product->fresh();
     }
 
     public function destroy(Product $product)
     {
         $product->update(['status' => 'archived']);
+
         return response()->json(['message' => 'Produk diarsipkan.']);
     }
 }

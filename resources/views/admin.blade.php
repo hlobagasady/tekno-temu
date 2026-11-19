@@ -1,7 +1,175 @@
-<!doctype html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>TeknoTemu Admin</title><style>:root{--navy:#1A4230;--blue:#1A4230;--yellow:#F0402A;--bg:#EFE3CA;--line:#1A423033;--muted:#1A4230aa;--sidebar:252px}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:#1A4230;font:14px/1.5 Inter,system-ui,sans-serif}button,input,select{font:inherit}button{cursor:pointer}.hide{display:none!important}.logged-out .sidebar,.logged-out .topbar{display:none}.logged-out main{margin:0;padding:1px 20px;max-width:none}.muted{color:var(--muted)}header.topbar{height:64px;background:#EFE3CA;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 28px 0 calc(var(--sidebar) + 28px);position:fixed;inset:0 0 auto 0;z-index:5}header.topbar b{color:var(--navy);font-size:18px}header.topbar small{color:var(--muted);display:block}#logout{background:transparent;border:1px solid var(--line);color:var(--navy);padding:8px 14px;border-radius:7px;font-weight:700}#logout:hover{background:#EFE3CA}.sidebar{position:fixed;inset:0 auto 0 0;width:var(--sidebar);background:var(--navy);color:#EFE3CA99;padding:24px 16px;z-index:6}.sidebar-brand{display:flex;gap:10px;align-items:center;color:#EFE3CA;font-size:20px;font-weight:900;padding:0 12px 28px}.sidebar-brand i{font-style:normal;display:grid;place-items:center;width:32px;height:32px;background:var(--yellow);color:var(--navy);border-radius:8px}.side-label{text-transform:uppercase;font-size:10px;letter-spacing:1.4px;color:#EFE3CA99;padding:16px 12px 8px}.side-link{display:flex;align-items:center;gap:11px;color:#EFE3CA99;text-decoration:none;padding:11px 12px;border-radius:7px;margin:3px 0}.side-link.active,.side-link:hover{background:#1A4230;color:#EFE3CA}.side-link strong{width:18px;text-align:center;color:var(--yellow)}main{margin:0 0 0 var(--sidebar);padding:96px 32px 42px;max-width:1600px}.page-title{display:flex;align-items:end;justify-content:space-between;margin-bottom:24px}.page-title h1{font-size:28px;color:var(--navy);margin:0}.page-title p{margin:5px 0 0;color:var(--muted)}.crumb{color:var(--muted);font-size:12px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:22px}.stat{background:#EFE3CA;border:1px solid var(--line);border-radius:10px;padding:18px 20px;display:flex;align-items:center;gap:15px}.stat-icon{display:grid;place-items:center;width:44px;height:44px;border-radius:9px;background:#EFE3CA;color:var(--blue);font-weight:900;font-size:18px}.stat:nth-child(2) .stat-icon{background:#EFE3CA5d5;color:#F0402A}.stat:nth-child(3) .stat-icon{background:#EFE3CA;color:#1A4230}.stat small{display:block;color:var(--muted);font-size:12px}.stat b{display:block;color:var(--navy);font-size:24px;line-height:1.2}.panel{background:#EFE3CA;border:1px solid var(--line);border-radius:10px;margin-bottom:22px;overflow:hidden}.panel-head{padding:18px 22px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}.panel-head h2{font-size:17px;margin:0;color:var(--navy)}.panel-body{padding:22px}.product-form{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.field{display:grid;gap:6px}.field.full{grid-column:1/-1}.field label{font-size:12px;color:#1A4230aa;font-weight:700}.field input,.field select{width:100%;padding:11px 12px;border:1px solid #1A423033;border-radius:7px;background:#EFE3CA;color:#1A4230;outline:0}.field input:focus,.field select:focus{border-color:var(--blue);box-shadow:0 0 0 3px #1A423018}.primary{background:var(--blue);border:0;color:#EFE3CA;border-radius:7px;padding:11px 18px;font-weight:800}.primary:hover{background:#1A4230}.toolbar{display:flex;gap:10px;align-items:center}.secondary{background:#EFE3CA;border:1px solid var(--line);color:var(--navy);border-radius:7px;padding:9px 13px;font-weight:700}.table-wrap{overflow:auto}table{width:100%;border-collapse:collapse;min-width:700px}td,th{text-align:left;padding:13px 22px;border-bottom:1px solid #EFE3CA}th{background:#EFE3CA;color:#1A4230aa;font-size:11px;text-transform:uppercase;letter-spacing:.6px}td{color:#1A4230aa}.status{display:inline-block;padding:4px 8px;border-radius:5px;background:#EFE3CA;color:#1A4230;font-size:11px;font-weight:800}.msg{padding:12px 16px;border-radius:8px;margin-bottom:18px;background:#EFE3CA;color:#1A4230}.err{background:#F0402A22;color:#F0402A}#login{max-width:430px;margin:12vh auto;background:#EFE3CA;border:1px solid var(--line);border-radius:12px;padding:34px;box-shadow:0 12px 35px #1A423012}#login::before{content:'TeknoTemu Admin';display:block;color:var(--blue);font-size:12px;font-weight:900;letter-spacing:1px;text-transform:uppercase;margin-bottom:16px}#login h1{color:var(--navy);font-size:28px;margin:0 0 7px}#login p{color:var(--muted);margin:0 0 24px}#login form{display:grid;gap:15px}#login label{font-weight:700;font-size:12px;color:#1A4230aa}#login input{width:100%;margin-top:6px;padding:12px;border:1px solid #1A423033;border-radius:7px}#login button{margin-top:5px}@media(max-width:900px){:root{--sidebar:68px}.sidebar{padding:20px 10px}.sidebar-brand{padding:0 8px 25px}.sidebar-brand span,.side-label,.side-link span{display:none}.side-link{justify-content:center;padding:12px}.topbar{padding-left:96px!important}.product-form{grid-template-columns:repeat(2,1fr)}}@media(max-width:600px){:root{--sidebar:0px}.sidebar{display:none}header.topbar{padding:0 16px!important}.topbar small{display:none}main{padding:86px 16px 30px}.stats{grid-template-columns:1fr}.page-title{display:block}.page-title .crumb{margin-top:8px}.product-form{grid-template-columns:1fr}.field.full{grid-column:auto}.panel-body{padding:16px}}.filters{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:16px 22px;border-bottom:1px solid var(--line);background:#fbfcfe}.filters input,.filters select{min-width:170px;border:1px solid var(--line);border-radius:6px;padding:8px 10px}.pagination{display:flex;align-items:center;justify-content:center;gap:14px;padding:16px;border-top:1px solid var(--line)}.master-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.master-grid .panel{min-width:0}#taxForm{display:grid;gap:14px}#taxForm label{display:grid;gap:6px;font-weight:700;font-size:12px;color:var(--muted)}#taxForm input{padding:10px;border:1px solid var(--line);border-radius:7px}.modal{position:fixed;inset:0;background:#1A423088;display:grid;place-items:center;padding:20px;z-index:20}.modal-card{background:#EFE3CA;width:min(760px,100%);max-height:90vh;overflow:auto;border-radius:12px;box-shadow:0 20px 60px #1A423040}.modal-head{display:flex;justify-content:space-between;align-items:center;padding:18px 22px;border-bottom:1px solid var(--line)}.modal-head h2{margin:0;color:var(--navy);font-size:18px}.modal-close{background:transparent;border:0;color:var(--muted);font-size:24px;padding:2px 8px}.modal-card .panel-body{padding:22px}.actions{display:flex;gap:8px;white-space:nowrap}.action{border:1px solid var(--line);background:#EFE3CA;color:var(--navy);border-radius:6px;padding:6px 9px;font-size:12px;font-weight:700}.action.danger{color:#F0402A;border-color:#F0402A66}.table-wrap td:last-child{width:150px}@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}</style></head><body class="logged-out"><aside class="sidebar"><div class="sidebar-brand"><i>A</i><span>TeknoTemu</span></div><div class="side-label">Menu utama</div><a class="side-link active" href="#dashboard" data-view="dashboard"><strong>▦</strong><span>Dashboard</span></a><a class="side-link" href="#products" data-view="products"><strong>□</strong><span>Produk</span></a><div class="side-label">Master data</div><a class="side-link" href="#master" data-view="master"><strong>≡</strong><span>Kategori & Collections</span></a><div class="side-label">Sistem</div><a class="side-link" href="/"><strong>↗</strong><span>Lihat website</span></a></aside><header class="topbar"><div><b id="pageHeading">Dashboard</b><small id="pageSubheading">Ringkasan katalog TeknoTemu</small></div><button id="logout">Keluar</button></header><main><div id="message"></div><section id="login" class="hide"><h1>Masuk ke dashboard</h1><p>Kelola katalog produk dari satu tempat.</p><form id="loginForm"><label>Email<input id="email" type="email" value="admin@example.com" autocomplete="username" required></label><label>Password<input id="password" type="password" placeholder="Masukkan password" autocomplete="current-password" required></label><button class="primary">Masuk ke dashboard</button></form></section><section id="app" class="hide"><div id="dashboardView"><div class="page-title" id="dashboard"><div><h1>Dashboard</h1><p>Ringkasan katalog dan pengelolaan produk.</p></div><span class="crumb">Admin / Dashboard</span></div><div class="stats"><div class="stat"><div class="stat-icon">▦</div><div><small>Total produk</small><b id="totalProducts">—</b></div></div><div class="stat"><div class="stat-icon">●</div><div><small>Produk terbit</small><b id="publishedProducts">—</b></div></div><div class="stat"><div class="stat-icon">✓</div><div><small>Status sistem</small><b>Aktif</b></div></div></div></div><div id="productsView" class="hide"><div class="page-title"><div><h1>Produk</h1><p>Tambah dan kelola produk katalog.</p></div><span class="crumb">Admin / Produk</span></div><section class="panel"><div class="panel-head"><div><h2>Daftar produk</h2><span class="muted">Kelola katalog dari tabel ini</span></div><div class="toolbar"><button class="primary" id="addProduct">+ Tambah produk</button><label class="secondary" for="importFile">Import CSV</label><input id="importFile" type="file" accept=".csv,text/csv" class="hide"><button class="secondary" id="refresh">Muat ulang</button></div></div><div class="filters"><input id="productSearch" placeholder="Cari nama, merek, kategori..."><select id="statusFilter"><option value="">Semua status</option><option value="published">Terbit</option><option value="draft">Draf</option><option value="archived">Arsip</option></select><input id="categoryFilter" placeholder="Filter kategori"><button class="secondary" id="applyFilters">Terapkan</button><button class="secondary" id="clearFilters">Reset</button></div><div class="table-wrap"><table><thead><tr><th>Nama</th><th>Kategori</th><th>Harga</th><th>Status</th><th>Aksi</th></tr></thead><tbody id="rows"></tbody></table></div><div class="pagination"><button class="secondary" id="prevPage">Sebelumnya</button><span id="pageInfo" class="muted">Halaman 1</span><button class="secondary" id="nextPage">Berikutnya</button></div></section><div id="productModal" class="modal hide" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="modal-card"><div class="modal-head"><h2 id="modalTitle">Tambah produk</h2><button class="modal-close" id="closeModal" type="button" aria-label="Tutup">×</button></div><div class="panel-body"><form id="productForm" class="product-form"><input id="edit_id" type="hidden"><div class="field"><label for="name">Nama produk</label><input id="name" placeholder="Contoh: Logitech MX Master 3S" required></div><div class="field"><label for="brand">Merek</label><input id="brand" placeholder="Logitech"></div><div class="field"><label for="price_idr">Harga (IDR)</label><input id="price_idr" type="number" min="0" placeholder="999000" required></div><div class="field"><label for="category">Kategori</label><input id="category" placeholder="Periferal" required></div><div class="field"><label for="collection_name">Koleksi</label><input id="collection_name" placeholder="WFH"></div><div class="field"><label for="status">Status</label><select id="status"><option value="published">Terbit</option><option value="draft">Draf</option><option value="archived">Arsip</option></select></div><div class="field full"><label for="spec">Spesifikasi</label><input id="spec" placeholder="Wireless · USB-C · 8 tombol"></div><div class="field full"><label for="photos">Foto produk (bisa pilih banyak)</label><input id="photos" type="file" accept="image/jpeg,image/png,image/webp" multiple><small class="muted">Maksimal 12 foto, masing-masing 2 MB.</small></div><div class="field full"><label for="video">Video produk (opsional)</label><input id="video" type="file" accept="video/mp4,video/webm"><small class="muted">MP4/WebM, maksimal 6 MB.</small></div><div class="field full"><label for="affiliate_url">URL Shopee affiliate</label><input id="affiliate_url" type="url" placeholder="https://shopee.co.id/..." required></div><div><button class="primary" id="saveProduct">Simpan produk</button></div></form></div></div></div></div><div id="masterView" class="hide"><div class="page-title"><div><h1>Master Data</h1><p>Kelola kategori dan collections katalog.</p></div><span class="crumb">Admin / Master Data</span></div><div class="master-grid"><section class="panel"><div class="panel-head"><div><h2>Kategori</h2><span class="muted">Dipakai untuk filter produk</span></div><button class="primary" data-add-tax="categories">+ Tambah</button></div><div class="table-wrap"><table><thead><tr><th>Nama</th><th>Aksi</th></tr></thead><tbody id="categoryRows"></tbody></table></div></section><section class="panel"><div class="panel-head"><div><h2>Collections</h2><span class="muted">Koleksi pilihan di landing page</span></div><button class="primary" data-add-tax="collections">+ Tambah</button></div><div class="table-wrap"><table><thead><tr><th>Nama</th><th>Deskripsi</th><th>Aksi</th></tr></thead><tbody id="collectionRows"></tbody></table></div></section></div></div><div id="taxModal" class="modal hide" role="dialog" aria-modal="true"><div class="modal-card"><div class="modal-head"><h2 id="taxTitle">Tambah master data</h2><button class="modal-close" id="closeTax" type="button">×</button></div><div class="panel-body"><form id="taxForm"><input id="taxType" type="hidden"><input id="taxId" type="hidden"><label>Nama<input id="taxName" required maxlength="100"></label><label id="taxDescriptionLabel">Deskripsi<input id="taxDescription" maxlength="255"></label><button class="primary" type="submit">Simpan</button></form></div></div></div></main><script>const $=id=>document.getElementById(id),api='/api';let token=localStorage.getItem('teknotemu_token');
-function msg(t,err=false){$('message').innerHTML='<div class="msg '+(err?'err':'')+'">'+t+'</div>';setTimeout(()=>$('message').innerHTML='',4000)}
-function show(){const loggedIn=!!token;document.body.classList.toggle('logged-out',!loggedIn);$('login').classList.toggle('hide',loggedIn);$('app').classList.toggle('hide',!loggedIn);if(loggedIn)load()}
-async function call(url,opt={}){opt.headers={Accept:'application/json','Content-Type':'application/json',Authorization:'Bearer '+token,...opt.headers};const r=await fetch(api+url,opt);const d=await r.json();if(r.status===401){token=null;localStorage.removeItem('teknotemu_token');show();throw Error('Sesi berakhir')}if(!r.ok)throw Error(d.message||'Request gagal');return d}
-let page=1;async function load(){try{const params=new URLSearchParams({page,per_page:10});if($('productSearch').value)params.set('search',$('productSearch').value);if($('statusFilter').value)params.set('status',$('statusFilter').value);if($('categoryFilter').value)params.set('category',$('categoryFilter').value);const d=await call('/products?'+params);const rows=d.data||d;$('rows').innerHTML=rows.map(p=>'<tr><td><b>'+p.name+'</b><br><small class="muted">'+(p.brand||'')+'</small></td><td>'+p.category+'</td><td>Rp '+Number(p.price_idr).toLocaleString('id-ID')+'</td><td><span class="status">'+p.status+'</span></td><td><div class="actions"><button class="action" data-edit="'+p.id+'">Edit</button><button class="action danger" data-delete="'+p.id+'">Hapus</button></div></td></tr>').join('');rows.forEach(p=>{const e=document.querySelector('[data-edit="'+p.id+'"]');if(e)e.onclick=()=>openEdit(p);const d=document.querySelector('[data-delete="'+p.id+'"]');if(d)d.onclick=()=>removeProduct(p)});$('totalProducts').textContent=d.total??rows.length;const published=await call('/products?status=published&per_page=1');$('publishedProducts').textContent=published.total??0;$('pageInfo').textContent='Halaman '+(d.current_page??page)+' dari '+(d.last_page??1);$('prevPage').disabled=(d.current_page??page)<=1;$('nextPage').disabled=(d.current_page??page)>=(d.last_page??1)}catch(e){msg(e.message,true)}}
-function showView(view){const dashboard=view==='dashboard',products=view==='products';$('dashboardView').classList.toggle('hide',!dashboard);$('productsView').classList.toggle('hide',!products);$('masterView').classList.toggle('hide',dashboard||products);document.querySelectorAll('[data-view]').forEach(x=>x.classList.toggle('active',x.dataset.view===view));$('pageHeading').textContent=dashboard?'Dashboard':products?'Produk':'Master Data';$('pageSubheading').textContent=dashboard?'Ringkasan katalog TeknoTemu':products?'Kelola produk dan media katalog':'Kelola kategori dan collections';if(!dashboard&&!products)loadTaxonomies()}document.querySelectorAll('[data-view]').forEach(x=>x.onclick=e=>{e.preventDefault();showView(x.dataset.view)});$('loginForm').onsubmit=async e=>{e.preventDefault();try{const r=await fetch(api+'/auth/login',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({email:$('email').value,password:$('password').value})});const d=await r.json();if(!r.ok||!d.token)throw Error(d.message||'Login gagal');token=d.token;localStorage.setItem('teknotemu_token',token);show()}catch(e){msg(e.message,true)}};
-async function loadTaxonomies(){for(const type of ['categories','collections']){const rows=await call('/'+type);const target=$(type==='categories'?'categoryRows':'collectionRows');target.innerHTML=rows.map(x=>'<tr><td><b>'+x.name+'</b></td>'+(type==='collections'?'<td>'+((x.description||''))+'</td>':'')+'<td><div class=\"actions\"><button class=\"action\" data-tax-edit=\"'+type+'\" data-tax-id=\"'+x.id+'\">Edit</button><button class=\"action danger\" data-tax-delete=\"'+type+'\" data-tax-id=\"'+x.id+'\">Hapus</button></div></td></tr>').join('');target.querySelectorAll('[data-tax-edit]').forEach(b=>b.onclick=()=>{const x=rows.find(v=>v.id==b.dataset.taxId);openTax(type,x)});target.querySelectorAll('[data-tax-delete]').forEach(b=>b.onclick=()=>deleteTax(type,b.dataset.taxId))}}function openTax(type,item=null){$('taxType').value=type;$('taxId').value=item?.id||'';$('taxName').value=item?.name||'';$('taxDescription').value=item?.description||'';$('taxDescriptionLabel').classList.toggle('hide',type==='categories');$('taxTitle').textContent=(item?'Edit ':'Tambah ')+(type==='categories'?'kategori':'collection');$('taxModal').classList.remove('hide')}function closeTax(){$('taxModal').classList.add('hide');$('taxForm').reset()}async function deleteTax(type,id){if(!confirm('Hapus data ini?'))return;try{await call('/'+type+'/'+id,{method:'DELETE'});msg('Data dihapus');loadTaxonomies()}catch(e){msg(e.message,true)}}document.querySelectorAll('[data-add-tax]').forEach(b=>b.onclick=()=>openTax(b.dataset.addTax));$('closeTax').onclick=closeTax;$('taxModal').onclick=e=>{if(e.target.id==='taxModal')closeTax()};$('taxForm').onsubmit=async e=>{e.preventDefault();const type=$('taxType').value,id=$('taxId').value;const body={name:$('taxName').value,description:$('taxDescription').value};try{await call('/'+type+(id?'/'+id:''),{method:id?'PUT':'POST',body:JSON.stringify(body)});closeTax();msg('Data tersimpan');loadTaxonomies()}catch(e){msg(e.message,true)}};let editingId=null;function openModal(){document.querySelector('#productModal').classList.remove('hide')}function closeModal(){document.querySelector('#productModal').classList.add('hide');$('productForm').reset();editingId=null;$('modalTitle').textContent='Tambah produk'}function openEdit(p){editingId=p.id;$('modalTitle').textContent='Edit produk';['name','brand','price_idr','category','collection_name','spec','affiliate_url','status'].forEach(k=>$(k).value=p[k]||'');openModal()}async function removeProduct(p){if(!confirm('Arsipkan produk '+p.name+'?'))return;try{await call('/products/'+p.id,{method:'DELETE'});msg('Produk diarsipkan');load()}catch(e){msg(e.message,true)}}$('addProduct').onclick=openModal;$('closeModal').onclick=closeModal;$('productModal').onclick=e=>{if(e.target.id==='productModal')closeModal()};$('productForm').onsubmit=async e=>{e.preventDefault();try{const data=new FormData();['name','brand','price_idr','category','collection_name','spec','affiliate_url','status'].forEach(k=>data.append(k,$(k).value));[...$('photos').files].forEach(file=>data.append('photos[]',file));if($('video').files[0])data.append('video',$('video').files[0]);if(editingId)data.append('_method','PATCH');const r=await fetch(api+'/products'+(editingId?'/'+editingId:''),{method:'POST',headers:{Accept:'application/json',Authorization:'Bearer '+token},body:data});const d=await r.json();if(!r.ok)throw Error(d.message||'Produk gagal disimpan');closeModal();msg(editingId?'Produk diperbarui':'Produk tersimpan');load()}catch(e){msg(e.message,true)}};$('applyFilters').onclick=()=>{page=1;load()};$('clearFilters').onclick=()=>{$('productSearch').value='';$('statusFilter').value='';$('categoryFilter').value='';page=1;load()};$('productSearch').onkeydown=e=>{if(e.key==='Enter'){page=1;load()}};$('prevPage').onclick=()=>{if(page>1){page--;load()}};$('nextPage').onclick=()=>{page++;load()};$('importFile').onchange=async e=>{if(!e.target.files[0])return;const data=new FormData();data.append('file',e.target.files[0]);try{const r=await fetch(api+'/products/import',{method:'POST',headers:{Accept:'application/json',Authorization:'Bearer '+token},body:data});const d=await r.json();if(!r.ok)throw Error(d.message||'Import gagal');msg(d.imported+' produk berhasil diimport');e.target.value='';page=1;load()}catch(err){msg(err.message,true)}};$('refresh').onclick=load;$('logout').onclick=async()=>{try{if(token)await fetch(api+'/auth/logout',{method:'POST',headers:{Accept:'application/json',Authorization:'Bearer '+token}})}finally{token=null;localStorage.removeItem('teknotemu_token');window.location.href='/'}};show();</script></body></html>
+<!doctype html>
+<html lang="id">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>TeknoTemu Admin</title>
+    @vite(["resources/css/admin.css","resources/css/app.css","resources/js/app.js","resources/js/admin.js"])
+</head>
+
+<body class="logged-out">
+    <aside class="sidebar">
+        <div class="sidebar-brand"><i>A</i><span>TeknoTemu</span></div>
+        <div class="side-label">Menu utama</div><a class="side-link active" href="#dashboard" data-view="dashboard"><strong class="menu-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="6" height="6" rx="1"></rect><rect x="14" y="4" width="6" height="6" rx="1"></rect><rect x="4" y="14" width="6" height="6" rx="1"></rect><rect x="14" y="14" width="6" height="6" rx="1"></rect></svg></strong><span>Dashboard</span></a><a class="side-link" href="#products" data-view="products"><strong class="menu-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 7.5 12 4l8 3.5v9L12 20l-8-3.5z"></path><path d="m4 7.5 8 4 8-4M12 11.5V20"></path></svg></strong><span>Produk</span></a>
+        <div class="side-label">Master data</div><a class="side-link" href="#master" data-view="master"><strong class="menu-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 7h14M5 12h14M5 17h14"></path><circle cx="8" cy="7" r="1"></circle><circle cx="16" cy="12" r="1"></circle><circle cx="10" cy="17" r="1"></circle></svg></strong><span>Kategori & Collections</span></a>
+        <div class="side-label">Sistem</div><a class="side-link" href="/"><strong class="menu-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"></path></svg></strong><span>Lihat website</span></a>
+    </aside>
+    <div class="mobile-menu-backdrop" id="mobileMenuBackdrop"></div>
+    <header class="topbar">
+        <button class="mobile-menu-toggle" id="mobileMenuToggle" type="button" aria-label="Buka menu" aria-expanded="false">☰</button><div><b id="pageHeading">Dashboard</b><small id="pageSubheading">Ringkasan katalog TeknoTemu</small></div><button id="logout">Keluar</button>
+    </header>
+    <main>
+        <div id="message"></div>
+        <section id="login" class="hide">
+            <h1>Masuk ke dashboard</h1>
+            <p>Kelola katalog produk dari satu tempat.</p>
+            <form id="loginForm"><label>Email<input id="email" type="email" value="admin@example.com" autocomplete="username" required></label><label>Password<input id="password" type="password" placeholder="Masukkan password" autocomplete="current-password" required></label><button class="primary">Masuk ke dashboard</button></form>
+        </section>
+        <section id="app" class="hide">
+            <div id="dashboardView">
+                <div class="page-title" id="dashboard">
+                    <div>
+                        <h1>Dashboard</h1>
+                        <p>Ringkasan katalog dan pengelolaan produk.</p>
+                    </div><span class="crumb">Admin / Dashboard</span>
+                </div>
+                <div class="stats">
+                    <div class="stat">
+                        <div class="stat-icon">▦</div>
+                        <div><small>Total produk</small><b id="totalProducts">—</b></div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-icon">●</div>
+                        <div><small>Produk terbit</small><b id="publishedProducts">—</b></div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-icon">✓</div>
+                        <div><small>Status sistem</small><b>Aktif</b></div>
+                    </div>
+                </div>
+            </div>
+            <div id="productsView" class="hide">
+                <div class="page-title">
+                    <div>
+                        <h1>Produk</h1>
+                        <p>Tambah dan kelola produk katalog.</p>
+                    </div><span class="crumb">Admin / Produk</span>
+                </div>
+                <section class="panel">
+                    <div class="panel-head">
+                        <div>
+                            <h2>Daftar produk</h2><span class="muted">Kelola katalog dari tabel ini</span>
+                        </div>
+                        <div class="toolbar"><button class="primary" id="addProduct">+ Tambah produk</button><label class="secondary" for="importFile">Import CSV</label><input id="importFile" type="file" accept=".csv,text/csv" class="hide"><button class="secondary" id="refresh">Muat ulang</button></div>
+                    </div>
+                    <div class="filters"><input id="productSearch" placeholder="Cari nama, merek, kategori..."><select id="statusFilter">
+                            <option value="">Semua status</option>
+                            <option value="published">Terbit</option>
+                            <option value="draft">Draf</option>
+                            <option value="archived">Arsip</option>
+                        </select><input id="categoryFilter" placeholder="Filter kategori"><button class="secondary" id="applyFilters">Terapkan</button><button class="secondary" id="clearFilters">Reset</button></div>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Nama</th>
+                                    <th>Kategori</th>
+                                    <th>Harga</th>
+                                    <th>Status</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="rows"></tbody>
+                        </table>
+                    </div>
+                    <div class="pagination"><button class="secondary" id="prevPage">Sebelumnya</button><span id="pageInfo" class="muted">Halaman 1</span><button class="secondary" id="nextPage">Berikutnya</button></div>
+                </section>
+                <div id="productModal" class="modal hide" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+                    <div class="modal-card">
+                        <div class="modal-head">
+                            <h2 id="modalTitle">Tambah produk</h2><button class="modal-close" id="closeModal" type="button" aria-label="Tutup">×</button>
+                        </div>
+                        <div class="panel-body">
+                            <form id="productForm" class="product-form"><input id="edit_id" type="hidden">
+                                <div class="field"><label for="name">Nama produk</label><input id="name" placeholder="Contoh: Logitech MX Master 3S" required></div>
+                                <div class="field"><label for="brand">Merek</label><input id="brand" placeholder="Logitech"></div>
+                                <div class="field"><label for="price_idr">Harga (IDR)</label><input id="price_idr" type="number" min="0" placeholder="999000" required></div>
+                                <div class="field"><label for="category">Kategori</label><input id="category" placeholder="Periferal" required></div>
+                                <div class="field"><label for="collection_name">Koleksi</label><input id="collection_name" placeholder="WFH"></div>
+                                <div class="field"><label for="status">Status</label><select id="status">
+                                        <option value="published">Terbit</option>
+                                        <option value="draft">Draf</option>
+                                        <option value="archived">Arsip</option>
+                                    </select></div>
+                                <div class="field full"><label for="spec">Spesifikasi</label><input id="spec" placeholder="Wireless · USB-C · 8 tombol"></div>
+                                <div class="field full"><label for="photos">Foto produk (bisa pilih banyak)</label><input id="photos" type="file" accept="image/jpeg,image/png,image/webp" multiple><small class="muted">Maksimal 12 foto, masing-masing 2 MB.</small></div>
+                                <div class="field full"><label for="video">Video produk (opsional)</label><input id="video" type="file" accept="video/mp4,video/webm"><small class="muted">MP4/WebM, maksimal 6 MB.</small></div>
+                                <div class="field full"><label for="affiliate_url">URL Shopee affiliate</label><input id="affiliate_url" type="url" placeholder="https://shopee.co.id/..." required></div>
+                                <div><button class="primary" id="saveProduct">Simpan produk</button></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="masterView" class="hide">
+                <div class="page-title">
+                    <div>
+                        <h1>Master Data</h1>
+                        <p>Kelola kategori dan collections katalog.</p>
+                    </div><span class="crumb">Admin / Master Data</span>
+                </div>
+                <div class="master-grid">
+                    <section class="panel">
+                        <div class="panel-head">
+                            <div>
+                                <h2>Kategori</h2><span class="muted">Dipakai untuk filter produk</span>
+                            </div><button class="primary" data-add-tax="categories">+ Tambah</button>
+                        </div>
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Nama</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="categoryRows"></tbody>
+                            </table>
+                        </div>
+                    </section>
+                    <section class="panel">
+                        <div class="panel-head">
+                            <div>
+                                <h2>Collections</h2><span class="muted">Koleksi pilihan di landing page</span>
+                            </div><button class="primary" data-add-tax="collections">+ Tambah</button>
+                        </div>
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Nama</th>
+                                        <th>Deskripsi</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="collectionRows"></tbody>
+                            </table>
+                        </div>
+                    </section>
+                </div>
+            </div>
+            <div id="taxModal" class="modal hide" role="dialog" aria-modal="true">
+                <div class="modal-card">
+                    <div class="modal-head">
+                        <h2 id="taxTitle">Tambah master data</h2><button class="modal-close" id="closeTax" type="button">×</button>
+                    </div>
+                    <div class="panel-body">
+                        <form id="taxForm"><input id="taxType" type="hidden"><input id="taxId" type="hidden"><label>Nama<input id="taxName" required maxlength="100"></label><label id="taxDescriptionLabel">Deskripsi<input id="taxDescription" maxlength="255"></label><button class="primary" type="submit">Simpan</button></form>
+                    </div>
+                </div>
+            </div>
+    </main>
+</body>
+
+</html>

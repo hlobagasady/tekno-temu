@@ -7,3 +7,138 @@
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
+
+
+.header {
+        background: #5363B6 !important;
+        color: #F5F0E6 !important;
+        border: 0 !important;
+        height: 82px !important
+    }
+
+    .brand,
+    .brand * {
+        display: flex;
+        align-items: center;
+        color: #F5F0E6 !important;
+        font-size: 21px !important;
+        text-decoration: none !important
+    }
+
+    .brand {
+        gap: 10px;
+        white-space: nowrap
+    }
+
+    .brand-mark {
+        display: grid !important;
+        place-items: center;
+        width: 34px;
+        height: 34px;
+        background: #FFE11A;
+        color: #5363B6 !important;
+        border-radius: 10px;
+        font-size: 17px;
+        font-weight: 950;
+        transform: rotate(-6deg)
+    }
+
+    .brand-name {
+        display: inline !important;
+        color: #F5F0E6 !important
+    }
+
+    .brand-name span {
+        display: inline !important;
+        color: #FFE11A !important
+    }
+
+    .search {
+        max-width: 560px !important
+    }
+
+    .search input {
+        border: 0 !important;
+        background: #F5F0E6 !important
+    }
+
+    .admin {
+        border-color: #F5F0E666 !important;
+        background: #F5F0E6 !important;
+        color: #F5F0E6 !important;
+        border-radius: 10px !important;
+        padding: 11px 15px !important;
+        text-decoration: none !important
+    }
+
+    .nav {
+        background: #F5F0E6 !important;
+        padding: 12px clamp(20px, 5vw, 76px) !important;
+        gap: 9px !important;
+        border: 0 !important
+    }
+
+    .nav a {
+        display: inline-flex;
+        align-items: center;
+        padding: 9px 13px;
+        border: 1px solid #5363B633;
+        border-radius: 9px;
+        background: #F5F0E6;
+        color: #5363B6aa !important;
+        font-size: 13px;
+        text-decoration: none !important;
+        transition: background .2s, border-color .2s, color .2s
+    }
+
+    .nav a:hover,
+    .nav a.active {
+        background: #5363B6;
+        border-color: #5363B6;
+        color: #F5F0E6 !important;
+        font-weight: 800
+    }
+
+    .header+.nav {
+        position: relative;
+        z-index: 4
+    }
+
+    .category-nav {
+        justify-content: center;
+        overflow-x: auto;
+        overflow-y: hidden;
+        scrollbar-color: #5363B6 transparent;
+        scrollbar-width: thin;
+        scroll-behavior: smooth;
+        overscroll-behavior-x: contain;
+    }
+
+    .category-nav::-webkit-scrollbar {
+        height: 6px;
+    }
+
+    .category-nav::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    .category-nav::-webkit-scrollbar-thumb {
+        background: #5363B6;
+        border-radius: 999px;
+    }
+
+    .category-nav a {
+        flex: 0 0 auto;
+        scroll-snap-align: start;
+    }
+
+    @media (max-width: 700px) {
+        .category-nav {
+            justify-content: flex-start;
+            scroll-snap-type: x proximity;
+        }
+    }
+
+.site-footer{margin-top:80px;padding:38px clamp(20px,5vw,76px);background:#5363B6!important;color:#5363B633;display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:36px;font-size:12px}.site-footer>div{display:grid;align-content:start;gap:5px}.site-footer b{color:#F5F0E6;font-size:21px;line-height:1.2}.footer-brand .brand{display:flex;align-items:center;gap:10px;white-space:nowrap;font-weight:850;letter-spacing:-1px}.footer-brand .brand-mark{display:grid!important;place-items:center;width:34px;height:34px;background:#FFE11A;color:#5363B6!important;border-radius:10px;font-size:17px!important;font-weight:950;transform:rotate(-6deg)}.footer-brand .brand-name{display:inline!important;color:#F5F0E6!important}.footer-brand .brand-name span{display:inline!important;color:#FFE11A!important}.site-footer strong{color:#F5F0E6;font-size:13px}.site-footer p{margin:4px 0;color:#F5F0E699}.site-footer span{color:#F5F0E699!important;display:block}@media(max-width:700px){.site-footer{grid-template-columns:1fr;gap:22px;margin-top:55px;padding:30px 20px}}
+
+
