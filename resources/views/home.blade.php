@@ -12,7 +12,6 @@
 <body class="home-page">@include('partials.site-header')<main>
         <section class="hero">
             <div>
-                <p class="eyebrow">KURASI ELEKTRONIK & IT</p>
                 <h1>Temukan perangkat<br><em>yang tepat.</em></h1>
                 <p>Pilihan terkurasi dengan spesifikasi jelas. Bandingkan dulu, beli di marketplace pilihan Anda.</p><a class="button" href="#products">Lihat pilihan</a>
             </div>
