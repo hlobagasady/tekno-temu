@@ -139,7 +139,7 @@
 
         .hero {
             position: relative;
-            background: #5363B6;
+            background: linear-gradient(90deg, #0B0E1Acc, #0B0E1A4d 45%, #0B0E1A00), url('./hero.jpeg') center/cover no-repeat #0B0E1A;
             border-top: 1px solid #F5F0E666;
             color: #F5F0E6;
             min-height: 390px;
@@ -157,7 +157,6 @@
         }
 
         .hero:before {
-            content: 'PROMO';
             position: absolute;
             right: 31%;
             top: 50%;
@@ -466,14 +465,12 @@
         }
 
 .hero {
-            background: #5363B6 !important;
             min-height: 430px !important;
             border-radius: 0 !important;
             padding: 72px clamp(24px, 8vw, 120px) !important
         }
 
         .hero:before {
-            content: '01 / KATALOG' !important;
             color: #5363B6 !important;
             right: 7% !important;
             top: 18% !important;
