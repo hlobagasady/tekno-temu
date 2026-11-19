@@ -59,7 +59,12 @@
 
     .search input {
         border: 0 !important;
-        background: #F5F0E6 !important
+        background: #F5F0E6 !important;
+        color: #5363B6 !important
+    }
+
+    .search input::placeholder {
+        color: #5363B680
     }
 
     .admin {
@@ -81,6 +86,7 @@
     .nav a {
         display: inline-flex;
         align-items: center;
+        gap: 7px;
         padding: 9px 13px;
         border: 1px solid #5363B633;
         border-radius: 9px;
@@ -101,7 +107,8 @@
 
     .header+.nav {
         position: relative;
-        z-index: 4
+        z-index: 4;
+        margin-top: 24px
     }
 
     .category-nav {
@@ -130,6 +137,33 @@
     .category-nav a {
         flex: 0 0 auto;
         scroll-snap-align: start;
+    }
+
+    .category-nav a::before {
+        content: '▦';
+        font-size: 14px;
+        line-height: 1;
+        opacity: .8
+    }
+
+    .category-nav a[data-category="Laptop & Komputer"]::before {
+        content: '▣'
+    }
+
+    .category-nav a[data-category="Periferal"]::before {
+        content: '⌨'
+    }
+
+    .category-nav a[data-category="Komponen PC"]::before {
+        content: '⚙'
+    }
+
+    .category-nav a[data-category="Aksesoris"]::before {
+        content: '◈'
+    }
+
+    .category-nav a[data-category="Jaringan"]::before {
+        content: '◉'
     }
 
     @media (max-width: 700px) {

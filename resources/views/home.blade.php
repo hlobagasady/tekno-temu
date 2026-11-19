@@ -28,7 +28,15 @@
                     <h2>Koleksi pilihan</h2>
                 </div>
             </div>
-            <div class="collections">@foreach($collections as $collection)<a href="#products" data-collection="{{ $collection->name }}"><b>{{ $collection->name }}</b><small>{{ $collection->description }}</small></a>@endforeach</div>
+            @php($isMarquee = $collections->count() > 3)
+            <div class="collections {{ $isMarquee ? 'marquee' : '' }}">
+                <div class="collections-track">
+                    @foreach($collections as $collection)<a href="#products" data-collection="{{ $collection->name }}"><b>{{ $collection->name }}</b><small>{{ $collection->description }}</small></a>@endforeach
+                    @if($isMarquee)
+                        @foreach($collections as $collection)<a href="#products" data-collection="{{ $collection->name }}" aria-hidden="true" tabindex="-1"><b>{{ $collection->name }}</b><small>{{ $collection->description }}</small></a>@endforeach
+                    @endif
+                </div>
+            </div>
         </section>
         <section id="products">
             <div class="section-head">

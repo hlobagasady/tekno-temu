@@ -137,9 +137,17 @@
             font-weight: 700
         }
 
+        .hero + .category-nav {
+            margin-top: 28px
+        }
+
         .hero {
             position: relative;
-            background: linear-gradient(90deg, #0B0E1Acc, #0B0E1A4d 45%, #0B0E1A00), url('./hero.jpeg') center/cover no-repeat #0B0E1A;
+            background:
+                radial-gradient(circle at 18% 25%, #FFE11A40, transparent 30%),
+                radial-gradient(circle at 85% 75%, #FFE11A80, transparent 38%),
+                linear-gradient(90deg, #0B0E1Acc, #0B0E1A4d 45%, #0B0E1A00),
+                url('./hero.jpeg') center/cover no-repeat #0B0E1A;
             border-top: 1px solid #F5F0E666;
             color: #F5F0E6;
             min-height: 390px;
@@ -313,12 +321,34 @@
         }
 
         .collections {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 14px
+            display: flex;
+            gap: 14px;
+            overflow: hidden
+        }
+
+        .collections:not(.marquee) {
+            overflow-x: auto;
+            scrollbar-width: thin
+        }
+
+        .collections-track {
+            display: flex;
+            flex: 0 0 auto;
+            gap: 14px;
+            min-width: max-content
+        }
+
+        .collections.marquee .collections-track {
+            animation: collections-marquee 30s linear infinite
+        }
+
+        .collections.marquee:hover .collections-track,
+        .collections.marquee:focus-within .collections-track {
+            animation-play-state: paused
         }
 
         .collections a {
+            flex: 0 0 clamp(220px, 26vw, 320px);
             background: #5363B6;
             border: 1px solid var(--line);
             border-radius: 15px;
@@ -327,6 +357,22 @@
             text-decoration: none;
             display: grid;
             gap: 4px
+        }
+
+        @keyframes collections-marquee {
+            to {
+                transform: translateX(calc(-50% - 7px))
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .collections.marquee {
+                overflow-x: auto
+            }
+
+            .collections.marquee .collections-track {
+                animation: none
+            }
         }
 
         .collections a:first-child {
