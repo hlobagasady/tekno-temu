@@ -1,10 +1,15 @@
+import heroBackground1 from '../css/hero.jpeg';
+import heroBackground2 from '../css/hero2.jfif';
+import heroBackground3 from '../css/hero3.jfif';
+import heroBackground4 from '../css/hero4.jfif';
+
 const grid = document.getElementById('grid');
 const query = document.getElementById('query');
 const loadMore = document.getElementById('loadMore');
 const heroSlider = document.getElementById('heroSlider');
 const heroSlides = document.getElementById('heroSlides');
 const heroDots = document.getElementById('heroDots');
-
+const heroBackgrounds = document.getElementById('heroBackgrounds');
 const pageSize = 10;
 let products = [];
 let activeCategory = '';
@@ -15,8 +20,14 @@ let isLoading = false;
 let requestController;
 let heroIndex = 0;
 let heroTimer;
-
+let heroBackgroundIndex = 0;
+let heroBackgroundTimer;
 const money = (value) => 'Rp ' + Number(value).toLocaleString('id-ID');
+const initialCategory = new URLSearchParams(window.location.search).get('category');
+
+if (initialCategory) {
+    activeCategory = initialCategory;
+}
 
 function setLoading(loading) {
     isLoading = loading;
@@ -26,7 +37,7 @@ function setLoading(loading) {
 
 function render() {
     grid.innerHTML = products.length
-        ? products.map((product) => `<article class="card"><a href="/products/${product.slug}"><img src="${product.image_url || 'https://placehold.co/600x600/F5F0E6/5363B6?text=Produk'}" alt="${product.name}" loading="lazy"></a>${product.is_top ? '<span class="badge">TOP</span>' : ''}<div class="info"><h3>${product.name}</h3><div class="meta">${product.brand || ''} · ${Number(product.sold_count || 0).toLocaleString('id-ID')} terjual</div><div class="price">${money(product.price_idr)}</div><div class="spec">${product.spec || ''}</div></div></article>`).join('')
+        ? products.map((product) => `<article class="card"><a href="/products/${product.slug}"><img src="${product.image_url || 'https://placehold.co/600x600/F5F0E6/5363B6?text=Produk'}" alt="${product.name}" loading="lazy"></a>${product.is_top ? '<span class="badge">TOP</span>' : ''}<div class="info"><h3>${product.name}</h3><div class="meta">${product.brand || ''} · ${Number(product.sold_count || 0).toLocaleString('id-ID')} terjual</div><div class="price-tag">${money(product.price_idr)}</div><div class="spec">${product.spec || ''}</div></div></article>`).join('')
         : '<p>Produk tidak ditemukan.</p>';
 
     loadMore.hidden = !hasMore || products.length === 0;
@@ -142,6 +153,32 @@ function initHeroSlider() {
     }
 }
 
+function showHeroBackground(index) {
+    const backgrounds = [...heroBackgrounds.children];
+
+    if (!backgrounds.length) return;
+
+    heroBackgroundIndex = (index + backgrounds.length) % backgrounds.length;
+    backgrounds.forEach((element, backgroundIndex) => {
+        element.classList.toggle('active', backgroundIndex === heroBackgroundIndex);
+    });
+}
+
+function startHeroBackgroundTimer() {
+    clearInterval(heroBackgroundTimer);
+    heroBackgroundTimer = setInterval(() => showHeroBackground(heroBackgroundIndex + 1), 5000);
+}
+
+function initHeroBackgroundSlider() {
+    const images = [heroBackground1, heroBackground2, heroBackground3, heroBackground4];
+
+    heroBackgrounds.innerHTML = images.map((image, index) => `<div class="hero-background${index ? '' : ' active'}" style="background-image: url('${image}')"></div>`).join('');
+
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        startHeroBackgroundTimer();
+    }
+}
+
 document.querySelectorAll('[data-category]').forEach((link) => {
     link.onclick = (event) => {
         event.preventDefault();
@@ -158,7 +195,7 @@ document.querySelectorAll('[data-collection]').forEach((link) => {
         event.preventDefault();
         activeCollection = link.dataset.collection;
         activeCategory = '';
-        document.querySelectorAll('[data-collection]').forEach((item) => item.classList.toggle('active', item === link));
+        document.querySelectorAll('[data-collection]').forEach((item) => item.classList.toggle('active', item.dataset.collection === activeCollection));
         document.querySelectorAll('[data-category]').forEach((item) => item.classList.remove('active'));
         loadProducts({ reset: true });
         document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
@@ -173,5 +210,9 @@ loadMore.onclick = () => {
 };
 
 query.oninput = () => loadProducts({ reset: true });
+document.querySelectorAll('[data-category]').forEach((link) => {
+    link.classList.toggle('active', link.dataset.category === activeCategory);
+});
+initHeroBackgroundSlider();
 loadProducts({ reset: true });
 

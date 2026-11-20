@@ -61,7 +61,7 @@
                         <div>
                             <h2>Daftar produk</h2><span class="muted">Kelola katalog dari tabel ini</span>
                         </div>
-                        <div class="toolbar"><button class="primary" id="addProduct">+ Tambah produk</button><label class="secondary" for="importFile">Import CSV</label><input id="importFile" type="file" accept=".csv,text/csv" class="hide"><button class="secondary" id="refresh">Muat ulang</button></div>
+                        <div class="toolbar"><button class="primary" id="addProduct">+ Tambah produk</button><button class="secondary" id="downloadImportTemplate" type="button">Download template</button><label class="secondary" for="importFile">Import CSV</label><input id="importFile" type="file" accept=".csv,text/csv" class="hide"><button class="secondary" id="refresh">Muat ulang</button></div>
                     </div>
                     <div class="filters"><input id="productSearch" placeholder="Cari nama, merek, kategori..."><select id="statusFilter">
                             <option value="">Semua status</option>
@@ -165,7 +165,7 @@
                         <h2 id="taxTitle">Tambah master data</h2><button class="modal-close" id="closeTax" type="button">×</button>
                     </div>
                     <div class="panel-body">
-                        <form id="taxForm"><input id="taxType" type="hidden"><input id="taxId" type="hidden"><label>Nama<input id="taxName" required maxlength="100"></label><label id="taxDescriptionLabel">Deskripsi<input id="taxDescription" maxlength="255"></label><button class="primary" type="submit">Simpan</button></form>
+                        <form id="taxForm"><input id="taxType" type="hidden"><input id="taxId" type="hidden"><label>Nama<input id="taxName" required maxlength="100"></label><label id="taxDescriptionLabel">Deskripsi<input id="taxDescription" maxlength="255"></label><label id="taxImageLabel" class="hide">Gambar koleksi<input id="taxImage" type="file" accept="image/jpeg,image/png,image/webp"><small class="muted">JPG, PNG, atau WebP, maksimal 2 MB.</small></label><button class="primary" type="submit">Simpan</button></form>
                     </div>
                 </div>
             </div>

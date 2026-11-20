@@ -8,6 +8,30 @@
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
 
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #5363B6 #FFFFFF
+}
+
+*::-webkit-scrollbar {
+    width: 10px;
+    height: 10px
+}
+
+*::-webkit-scrollbar-track {
+    background: #FFFFFF
+}
+
+*::-webkit-scrollbar-thumb {
+    border: 2px solid #FFFFFF;
+    border-radius: 999px;
+    background: #5363B6
+}
+
+*::-webkit-scrollbar-thumb:hover {
+    background: #26335F
+}
+
 
 .header {
         background: #5363B6 !important;
@@ -54,22 +78,103 @@
     }
 
     .search {
-        max-width: 560px !important
+        max-width: 560px !important;
+        position: relative;
+        z-index: 10;
+        border: 2px solid #FFE11A;
+        border-radius: 26px;
+        background: #FFFFFF
+    }
+
+    .search:focus-within {
+        box-shadow: 0 0 0 3px #FFE11A33
     }
 
     .search input {
         border: 0 !important;
-        background: #F5F0E6 !important;
+        border-radius: 24px 0 0 24px !important;
+        outline: 0 !important;
+        box-shadow: none !important;
+        background: #FFFFFF !important;
         color: #5363B6 !important
+    }
+
+    .search button {
+        border: 0 !important;
+        border-radius: 0 24px 24px 0 !important;
+        outline: 0 !important
     }
 
     .search input::placeholder {
         color: #5363B680
     }
 
+    .search-suggestions {
+        position: absolute;
+        top: calc(100% + 8px);
+        right: 0;
+        left: 0;
+        overflow: hidden;
+        border: 1px solid #5363B61a;
+        border-radius: 16px;
+        background: #FFFFFF;
+        box-shadow: 0 16px 34px #26335f2b
+    }
+
+    .search-suggestion {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        width: 100%;
+        padding: 12px 16px;
+        border: 0;
+        background: transparent;
+        color: #5363B6;
+        font: inherit;
+        text-align: left;
+        transition: background .2s ease
+    }
+
+    .search .search-suggestion {
+        width: 100%;
+        border: 0;
+        border-radius: 0;
+        background: transparent;
+        color: #5363B6;
+        font-size: 15px;
+        text-align: left
+    }
+
+    .search-suggestion:hover,
+    .search-suggestion:focus-visible {
+        background: #5363B60d;
+        outline: none
+    }
+
+    .search-suggestion + .search-suggestion {
+        border-top: 1px solid #5363B614
+    }
+
+    .search-suggestion img {
+        flex: 0 0 54px;
+        width: 54px;
+        height: 54px;
+        border-radius: 9px;
+        background: #FFFFFF;
+        object-fit: cover
+    }
+
+    .search-suggestion span {
+        overflow: hidden;
+        font-size: 15px;
+        font-weight: 600;
+        text-overflow: ellipsis;
+        white-space: nowrap
+    }
+
     .admin {
         border-color: #F5F0E666 !important;
-        background: #F5F0E6 !important;
+        background: #FFFFFF !important;
         color: #F5F0E6 !important;
         border-radius: 10px !important;
         padding: 11px 15px !important;
@@ -77,7 +182,7 @@
     }
 
     .nav {
-        background: #F5F0E6 !important;
+        background: #FFFFFF !important;
         padding: 12px clamp(20px, 5vw, 76px) !important;
         gap: 9px !important;
         border: 0 !important
@@ -90,7 +195,7 @@
         padding: 9px 13px;
         border: 1px solid #5363B633;
         border-radius: 9px;
-        background: #F5F0E6;
+        background: #FFFFFF;
         color: #5363B6aa !important;
         font-size: 13px;
         text-decoration: none !important;
@@ -103,6 +208,13 @@
         border-color: #5363B6;
         color: #F5F0E6 !important;
         font-weight: 800
+    }
+
+    .product-page .wrap > .category-nav {
+        justify-content: flex-start;
+        margin-top: 24px;
+        padding: 12px 0 !important;
+        background: transparent !important
     }
 
     .header+.nav {

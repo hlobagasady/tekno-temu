@@ -2,7 +2,7 @@
             --navy: #5363B6;
             --blue: #5363B6;
             --yellow: #FFE11A;
-            --bg: #F5F0E6;
+            --bg: #FFFFFF;
             --line: #5363B633;
             --muted: #5363B6aa;
             --sidebar: 252px
@@ -29,6 +29,30 @@
             cursor: pointer
         }
 
+        .is-loading {
+            cursor: wait !important;
+            opacity: .78;
+            pointer-events: none
+        }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            margin-right: 7px;
+            border: 2px solid currentColor;
+            border-right-color: transparent;
+            border-radius: 50%;
+            vertical-align: -2px;
+            animation: admin-spinner .7s linear infinite
+        }
+
+        @keyframes admin-spinner {
+            to {
+                transform: rotate(360deg)
+            }
+        }
+
         .hide {
             display: none !important
         }
@@ -50,7 +74,7 @@
 
         header.topbar {
             height: 64px;
-            background: #F5F0E6;
+            background: #FFFFFF;
             border-bottom: 1px solid var(--line);
             display: flex;
             align-items: center;
@@ -81,7 +105,7 @@
         }
 
         #logout:hover {
-            background: #F5F0E6
+            background: #FFFFFF
         }
 
         .mobile-menu-toggle,
@@ -209,7 +233,7 @@
         }
 
         .stat {
-            background: #F5F0E6;
+            background: #FFFFFF;
             border: 1px solid var(--line);
             border-radius: 10px;
             padding: 18px 20px;
@@ -224,19 +248,19 @@
             width: 44px;
             height: 44px;
             border-radius: 9px;
-            background: #F5F0E6;
+            background: #FFFFFF;
             color: var(--blue);
             font-weight: 900;
             font-size: 18px
         }
 
         .stat:nth-child(2) .stat-icon {
-            background: #F5F0E6;
+            background: #FFFFFF;
             color: #FFE11A
         }
 
         .stat:nth-child(3) .stat-icon {
-            background: #F5F0E6;
+            background: #FFFFFF;
             color: #5363B6
         }
 
@@ -254,7 +278,7 @@
         }
 
         .panel {
-            background: #F5F0E6;
+            background: #FFFFFF;
             border: 1px solid var(--line);
             border-radius: 10px;
             margin-bottom: 22px;
@@ -306,7 +330,7 @@
             padding: 11px 12px;
             border: 1px solid #5363B633;
             border-radius: 7px;
-            background: #F5F0E6;
+            background: #FFFFFF;
             color: #5363B6;
             outline: 0
         }
@@ -363,7 +387,7 @@
         }
 
         th {
-            background: #F5F0E6;
+            background: #FFFFFF;
             color: #5363B6aa;
             font-size: 11px;
             text-transform: uppercase;
@@ -378,29 +402,78 @@
             display: inline-block;
             padding: 4px 8px;
             border-radius: 5px;
-            background: #F5F0E6;
+            background: #FFFFFF;
             color: var(--blue);
             font-size: 14px;
             font-weight: 800
         }
 
         .msg {
-            padding: 12px 16px;
-            border-radius: 8px;
-            margin-bottom: 18px;
-            background: #F5F0E6;
-            color: #5363B6
+            position: fixed;
+            top: 82px;
+            right: 24px;
+            z-index: 100;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 3px 16px;
+            width: min(420px, calc(100vw - 32px));
+            padding: 15px 16px;
+            border: 1px solid #5363B633;
+            border-left: 4px solid #5363B6;
+            border-radius: 10px;
+            background: #FFFFFF;
+            color: #5363B6;
+            box-shadow: 0 16px 36px #26335F2b;
+            animation: notice-in .2s ease-out
         }
 
         .err {
-            background: #FFE11A22;
-            color: #FFE11A
+            border-color: #F0402A66;
+            border-left-color: #F0402A;
+            color: #9F2619
+        }
+
+        .msg strong,
+        .msg span {
+            grid-column: 1
+        }
+
+        .msg strong {
+            font-size: 14px
+        }
+
+        .msg span {
+            font-size: 13px;
+            line-height: 1.4
+        }
+
+        .msg-close {
+            grid-column: 2;
+            grid-row: 1 / span 2;
+            align-self: start;
+            border: 0;
+            background: transparent;
+            color: currentColor;
+            font-size: 22px;
+            line-height: 1
+        }
+
+        @keyframes notice-in {
+            from {
+                opacity: 0;
+                transform: translateY(-8px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
         }
 
         #login {
             max-width: 430px;
             margin: 12vh auto;
-            background: #F5F0E6;
+            background: #FFFFFF;
             border: 1px solid var(--line);
             border-radius: 12px;
             padding: 34px;
@@ -659,7 +732,7 @@
         .filters input,
         .filters select {
             min-width: 270px;
-            background: #efe3ca;
+            background: #ffffff;
             border: 1px solid var(--line);
             border-radius: 6px;
             padding: 8px 10px;
@@ -714,7 +787,7 @@
         }
 
         .modal-card {
-            background: #F5F0E6;
+            background: #FFFFFF;
             width: min(760px, 100%);
             max-height: 90vh;
             overflow: auto;
@@ -756,7 +829,7 @@
 
         .action {
             border: 1px solid var(--line);
-            background: #F5F0E6;
+            background: #FFFFFF;
             color: var(--navy);
             border-radius: 6px;
             padding: 6px 9px;

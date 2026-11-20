@@ -2,7 +2,7 @@
             --ink: #5363B6;
             --blue: #5363B6;
             --yellow: #FFE11A;
-            --page: #F5F0E6;
+            --page: #FFFFFF;
             --product-surface: #5363B6;
             --product-text: #F5F0E6;
             --line: #5363B633;
@@ -52,7 +52,7 @@
             border: 2px solid transparent;
             border-radius: 9px;
             padding: 3px;
-            background: #F5F0E6;
+            background: #ffffff;
             cursor: pointer
         }
 
@@ -283,7 +283,7 @@
             gap: 22px;
             overflow: auto;
             white-space: nowrap;
-            background: #F5F0E6;
+            background: #FFFFFF;
             border-top: 1px solid #F5F0E6;
             padding: 16px clamp(20px, 5vw, 76px)
         }
@@ -304,6 +304,42 @@
             padding: 0 24px 45px
         }
 
+        .breadcrumbs {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 24px;
+            overflow-x: auto;
+            color: #5363B6aa;
+            font-size: 14px;
+            white-space: nowrap;
+            scrollbar-width: none
+        }
+
+        .breadcrumbs::-webkit-scrollbar {
+            display: none
+        }
+
+        .breadcrumbs a {
+            color: #5363B6;
+            text-decoration: none
+        }
+
+        .breadcrumbs a:hover {
+            text-decoration: underline
+        }
+
+        .breadcrumbs > span[aria-hidden="true"] {
+            color: #5363B699;
+            font-size: 22px;
+            line-height: 1
+        }
+
+        .breadcrumb-current {
+            overflow: hidden;
+            text-overflow: ellipsis
+        }
+
         .product {
             margin-top: 35px;
             background: var(--product-surface);
@@ -316,10 +352,14 @@
             box-shadow: 0 18px 40px #5363B640
         }
 
+        .product-page .wrap > .product {
+            margin-top: 22px
+        }
+
         .photo {
             display: grid;
             place-items: center;
-            background: #F5F0E6;
+            background: #ffffff;
             border-radius: 18px;
             min-height: 0;
             padding: 22px
@@ -405,20 +445,21 @@
         }
 
         .related-card {
-            background: var(--ink);
+            position: relative;
+            background: var(--page);
             border: 0;
-            border-radius: 12px;
+            border-radius: 14px;
             padding: 0;
             text-decoration: none;
-            color: var(--page);
-            box-shadow: 0 8px 24px #5363B626;
-            transition: transform .2s, border-color .2s, box-shadow .2s
+            color: var(--ink);
+            box-shadow: 0 12px 28px #5363B622;
+            overflow: hidden;
+            transition: transform .2s ease, box-shadow .2s ease
         }
 
         .related-card:hover {
-            border-color: var(--yellow);
             transform: translateY(-4px);
-            box-shadow: 0 14px 28px #5363B640
+            box-shadow: 0 18px 34px #5363B633
         }
 
         .related-card img {
@@ -427,36 +468,70 @@
             height: auto;
             display: block;
             object-fit: cover;
-            background: var(--ink);
-            border-radius: 12px 12px 0 0
+            background: var(--page);
+            border-radius: 0
         }
 
-        .related-card > div {
-            padding: 17px
+        .related-info {
+            padding: 14px 15px 16px
         }
 
-        .related-card b,
-        .related-card small {
-            display: block
-        }
-
-        .related-card b {
+        .related-info h3 {
             min-height: 40px;
             margin: 0 0 8px;
             font-size: 16px;
             line-height: 1.3;
-            color: var(--page)
+            color: var(--ink);
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            overflow: hidden
         }
 
-        .related-card small {
-            margin: 0;
-            color: #F5F0E6CC;
-            font-size: 12px
+        .related-meta,
+        .related-spec {
+            color: #5363B6aa;
+            font-size: 12px;
+            line-height: 1.4
+        }
+
+        .related-meta {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis
         }
 
         .related-price {
-            color: var(--yellow);
-            font-weight: 800
+            display: inline-block;
+            margin-top: 7px;
+            padding: 6px 10px;
+            border: 1px solid var(--blue);
+            border-radius: 6px;
+            background: var(--blue);
+            color: var(--page);
+            font-size: 16px;
+            font-weight: 850;
+            line-height: 1
+        }
+
+        .related-spec {
+            margin-top: 4px;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 1;
+            overflow: hidden
+        }
+
+        .related-card .badge {
+            position: absolute;
+            top: 11px;
+            left: 11px;
+            padding: 4px 8px;
+            border-radius: 5px;
+            background: var(--yellow);
+            color: var(--blue);
+            font-size: 10px;
+            font-weight: 900
         }
 
         footer {
@@ -527,11 +602,17 @@
                 gap: 10px
             }
 
-            .related-card > div {
+            .related-info {
                 padding: 11px
             }
 
-            .related-card b {
+            .related-price {
+                padding: 5px 8px;
+                font-size: 14px;
+                white-space: nowrap
+            }
+
+            .related-info h3 {
                 font-size: 15px
             }
 

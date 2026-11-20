@@ -3,16 +3,92 @@ const $ = id => document.getElementById(id),
         let token = localStorage.getItem('teknotemu_token');
 
         function msg(t, err = false) {
-            $('message').innerHTML = '<div class="msg ' + (err ? 'err' : '') + '">' + t + '</div>';
-            setTimeout(() => $('message').innerHTML = '', 4000)
+            const message = $('message');
+            const notice = document.createElement('div');
+            const title = document.createElement('strong');
+            const detail = document.createElement('span');
+            const close = document.createElement('button');
+
+            notice.className = 'msg ' + (err ? 'err' : 'success');
+            notice.setAttribute('role', 'alert');
+            title.textContent = err ? 'Gagal' : 'Berhasil';
+            detail.textContent = t;
+            close.className = 'msg-close';
+            close.type = 'button';
+            close.setAttribute('aria-label', 'Tutup notifikasi');
+            close.textContent = '×';
+            close.onclick = () => notice.remove();
+            notice.append(title, detail, close);
+            message.replaceChildren(notice);
+            setTimeout(() => notice.remove(), 5000)
         }
 
-        function show() {
-            const loggedIn = !!token;
-            document.body.classList.toggle('logged-out', !loggedIn);
-            $('login').classList.toggle('hide', loggedIn);
-            $('app').classList.toggle('hide', !loggedIn);
-            if (loggedIn) load()
+        function errorMessage(data, fallback) {
+            if (data?.errors) {
+                return Object.values(data.errors).flat().join(' ');
+            }
+
+            return data?.message || fallback;
+        }
+
+        function setLoading(button, loading, label = 'Memproses...') {
+            if (!button) return;
+
+            if (loading) {
+                button.dataset.originalLabel = button.textContent;
+                button.disabled = true;
+                button.classList.add('is-loading');
+                button.innerHTML = '<span class="loading-spinner" aria-hidden="true"></span>' + label;
+                return;
+            }
+
+            button.disabled = false;
+            button.classList.remove('is-loading');
+            button.textContent = button.dataset.originalLabel || button.textContent;
+            delete button.dataset.originalLabel;
+        }
+
+        function showLogin() {
+            document.body.classList.add('logged-out');
+            $('login').classList.remove('hide');
+            $('app').classList.add('hide');
+        }
+
+        function showApp() {
+            document.body.classList.remove('logged-out');
+            $('login').classList.add('hide');
+            $('app').classList.remove('hide');
+        }
+
+        function clearSession(message = '') {
+            token = null;
+            localStorage.removeItem('teknotemu_token');
+            showLogin();
+            if (message) msg(message, true);
+        }
+
+        async function show() {
+            if (!token) {
+                showLogin();
+                return;
+            }
+
+            try {
+                const response = await fetch(api + '/auth/me', {
+                    headers: {
+                        Accept: 'application/json',
+                        Authorization: 'Bearer ' + token
+                    }
+                });
+
+                if (!response.ok) throw Error('Sesi berakhir. Silakan login kembali.');
+
+                showApp();
+                showView(getViewFromHash());
+                load();
+            } catch (error) {
+                clearSession(error.message);
+            }
         }
         async function call(url, opt = {}) {
             opt.headers = {
@@ -24,16 +100,22 @@ const $ = id => document.getElementById(id),
             const r = await fetch(api + url, opt);
             const d = await r.json();
             if (r.status === 401) {
-                token = null;
-                localStorage.removeItem('teknotemu_token');
-                show();
+                clearSession('Sesi berakhir. Silakan login kembali.');
                 throw Error('Sesi berakhir')
             }
-            if (!r.ok) throw Error(d.message || 'Request gagal');
+            if (!r.ok) throw Error(errorMessage(d, 'Request gagal'));
             return d
         }
         let page = 1;
-        async function load() {
+
+        function getViewFromHash() {
+            const view = window.location.hash.slice(1);
+
+            return ['products', 'master'].includes(view) ? view : 'dashboard';
+        }
+
+        async function load(loadingButton = null) {
+            setLoading(loadingButton, true, 'Memuat...');
             try {
                 const params = new URLSearchParams({
                     page,
@@ -49,7 +131,7 @@ const $ = id => document.getElementById(id),
                     const e = document.querySelector('[data-edit="' + p.id + '"]');
                     if (e) e.onclick = () => openEdit(p);
                     const d = document.querySelector('[data-delete="' + p.id + '"]');
-                    if (d) d.onclick = () => removeProduct(p)
+                    if (d) d.onclick = () => removeProduct(p, d)
                 });
                 $('totalProducts').textContent = d.total ?? rows.length;
                 const published = await call('/products?status=published&per_page=1');
@@ -59,6 +141,8 @@ const $ = id => document.getElementById(id),
                 $('nextPage').disabled = (d.current_page ?? page) >= (d.last_page ?? 1)
             } catch (e) {
                 msg(e.message, true)
+            } finally {
+                setLoading(loadingButton, false)
             }
         }
 
@@ -75,10 +159,12 @@ const $ = id => document.getElementById(id),
         }
         document.querySelectorAll('[data-view]').forEach(x => x.onclick = e => {
             e.preventDefault();
+            window.history.replaceState(null, '', '#' + x.dataset.view);
             showView(x.dataset.view)
             document.body.classList.remove('mobile-menu-open');
             $('mobileMenuToggle').setAttribute('aria-expanded', 'false');
         });
+        window.addEventListener('hashchange', () => showView(getViewFromHash()));
         $('mobileMenuToggle').onclick = () => {
             const isOpen = document.body.classList.toggle('mobile-menu-open');
             $('mobileMenuToggle').setAttribute('aria-expanded', isOpen ? 'true' : 'false');
@@ -89,6 +175,8 @@ const $ = id => document.getElementById(id),
         };
         $('loginForm').onsubmit = async e => {
             e.preventDefault();
+            const submitButton = e.submitter || $('loginForm').querySelector('button[type="submit"]');
+            setLoading(submitButton, true, 'Memeriksa...');
             try {
                 const r = await fetch(api + '/auth/login', {
                     method: 'POST',
@@ -102,12 +190,14 @@ const $ = id => document.getElementById(id),
                     })
                 });
                 const d = await r.json();
-                if (!r.ok || !d.token) throw Error(d.message || 'Login gagal');
+                if (!r.ok || !d.token) throw Error(errorMessage(d, 'Login gagal'));
                 token = d.token;
                 localStorage.setItem('teknotemu_token', token);
-                show()
+                await show()
             } catch (e) {
                 msg(e.message, true)
+            } finally {
+                setLoading(submitButton, false)
             }
         };
         async function loadTaxonomies() {
@@ -119,7 +209,7 @@ const $ = id => document.getElementById(id),
                     const x = rows.find(v => v.id == b.dataset.taxId);
                     openTax(type, x)
                 });
-                target.querySelectorAll('[data-tax-delete]').forEach(b => b.onclick = () => deleteTax(type, b.dataset.taxId))
+                target.querySelectorAll('[data-tax-delete]').forEach(b => b.onclick = () => deleteTax(type, b.dataset.taxId, b))
             }
         }
 
@@ -129,6 +219,8 @@ const $ = id => document.getElementById(id),
             $('taxName').value = item?.name || '';
             $('taxDescription').value = item?.description || '';
             $('taxDescriptionLabel').classList.toggle('hide', type === 'categories');
+            $('taxImageLabel').classList.toggle('hide', type === 'categories');
+            $('taxImage').value = '';
             $('taxTitle').textContent = (item ? 'Edit ' : 'Tambah ') + (type === 'categories' ? 'kategori' : 'collection');
             $('taxModal').classList.remove('hide')
         }
@@ -137,8 +229,9 @@ const $ = id => document.getElementById(id),
             $('taxModal').classList.add('hide');
             $('taxForm').reset()
         }
-        async function deleteTax(type, id) {
+        async function deleteTax(type, id, button) {
             if (!confirm('Hapus data ini?')) return;
+            setLoading(button, true, 'Menghapus...');
             try {
                 await call('/' + type + '/' + id, {
                     method: 'DELETE'
@@ -147,6 +240,8 @@ const $ = id => document.getElementById(id),
                 loadTaxonomies()
             } catch (e) {
                 msg(e.message, true)
+            } finally {
+                setLoading(button, false)
             }
         }
         document.querySelectorAll('[data-add-tax]').forEach(b => b.onclick = () => openTax(b.dataset.addTax));
@@ -158,20 +253,32 @@ const $ = id => document.getElementById(id),
             e.preventDefault();
             const type = $('taxType').value,
                 id = $('taxId').value;
-            const body = {
-                name: $('taxName').value,
-                description: $('taxDescription').value
-            };
+            const submitButton = e.submitter || $('taxForm').querySelector('button[type="submit"]');
+            setLoading(submitButton, true, 'Menyimpan...');
             try {
-                await call('/' + type + (id ? '/' + id : ''), {
-                    method: id ? 'PUT' : 'POST',
-                    body: JSON.stringify(body)
+                const body = new FormData();
+                body.append('name', $('taxName').value);
+                body.append('description', $('taxDescription').value);
+                if (type === 'collections' && $('taxImage').files[0]) body.append('image', $('taxImage').files[0]);
+                if (id) body.append('_method', 'PUT');
+
+                const response = await fetch(api + '/' + type + (id ? '/' + id : ''), {
+                    method: 'POST',
+                    headers: {
+                        Accept: 'application/json',
+                        Authorization: 'Bearer ' + token
+                    },
+                    body
                 });
+                const result = await response.json();
+                if (!response.ok) throw Error(errorMessage(result, 'Request gagal'));
                 closeTax();
                 msg('Data tersimpan');
                 loadTaxonomies()
             } catch (e) {
                 msg(e.message, true)
+            } finally {
+                setLoading(submitButton, false)
             }
         };
         let editingId = null;
@@ -193,8 +300,9 @@ const $ = id => document.getElementById(id),
             ['name', 'brand', 'price_idr', 'category', 'collection_name', 'spec', 'affiliate_url', 'status'].forEach(k => $(k).value = p[k] || '');
             openModal()
         }
-        async function removeProduct(p) {
+        async function removeProduct(p, button) {
             if (!confirm('Arsipkan produk ' + p.name + '?')) return;
+            setLoading(button, true, 'Mengarsipkan...');
             try {
                 await call('/products/' + p.id, {
                     method: 'DELETE'
@@ -203,6 +311,8 @@ const $ = id => document.getElementById(id),
                 load()
             } catch (e) {
                 msg(e.message, true)
+            } finally {
+                setLoading(button, false)
             }
         }
         $('addProduct').onclick = openModal;
@@ -212,6 +322,8 @@ const $ = id => document.getElementById(id),
         };
         $('productForm').onsubmit = async e => {
             e.preventDefault();
+            const submitButton = e.submitter || $('productForm').querySelector('button[type="submit"]');
+            setLoading(submitButton, true, 'Menyimpan...');
             try {
                 const data = new FormData();
                 ['name', 'brand', 'price_idr', 'category', 'collection_name', 'spec', 'affiliate_url', 'status'].forEach(k => data.append(k, $(k).value));
@@ -227,45 +339,49 @@ const $ = id => document.getElementById(id),
                     body: data
                 });
                 const d = await r.json();
-                if (!r.ok) throw Error(d.message || 'Produk gagal disimpan');
+                if (!r.ok) throw Error(errorMessage(d, 'Produk gagal disimpan'));
                 closeModal();
                 msg(editingId ? 'Produk diperbarui' : 'Produk tersimpan');
                 load()
             } catch (e) {
                 msg(e.message, true)
+            } finally {
+                setLoading(submitButton, false)
             }
         };
         $('applyFilters').onclick = () => {
             page = 1;
-            load()
+            load($('applyFilters'))
         };
         $('clearFilters').onclick = () => {
             $('productSearch').value = '';
             $('statusFilter').value = '';
             $('categoryFilter').value = '';
             page = 1;
-            load()
+            load($('clearFilters'))
         };
         $('productSearch').onkeydown = e => {
             if (e.key === 'Enter') {
                 page = 1;
-                load()
+                load($('applyFilters'))
             }
         };
         $('prevPage').onclick = () => {
             if (page > 1) {
                 page--;
-                load()
+                load($('prevPage'))
             }
         };
         $('nextPage').onclick = () => {
             page++;
-            load()
+            load($('nextPage'))
         };
         $('importFile').onchange = async e => {
             if (!e.target.files[0]) return;
             const data = new FormData();
             data.append('file', e.target.files[0]);
+            const importButton = document.querySelector('label[for="importFile"]');
+            setLoading(importButton, true, 'Mengimpor...');
             try {
                 const r = await fetch(api + '/products/import', {
                     method: 'POST',
@@ -276,17 +392,30 @@ const $ = id => document.getElementById(id),
                     body: data
                 });
                 const d = await r.json();
-                if (!r.ok) throw Error(d.message || 'Import gagal');
+                if (!r.ok) throw Error(errorMessage(d, 'Import gagal'));
                 msg(d.imported + ' produk berhasil diimport');
                 e.target.value = '';
                 page = 1;
                 load()
             } catch (err) {
                 msg(err.message, true)
+            } finally {
+                setLoading(importButton, false);
             }
         };
-        $('refresh').onclick = load;
+        $('refresh').onclick = () => load($('refresh'));
+        $('downloadImportTemplate').onclick = () => {
+            const headers = ['name', 'brand', 'price_idr', 'category', 'collection_name', 'spec', 'affiliate_url', 'status'];
+            const blob = new Blob(['\ufeff' + headers.join(',') + '\r\n'], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+
+            link.href = URL.createObjectURL(blob);
+            link.download = 'template-import-produk.csv';
+            link.click();
+            URL.revokeObjectURL(link.href);
+        };
         $('logout').onclick = async () => {
+            setLoading($('logout'), true, 'Keluar...');
             try {
                 if (token) await fetch(api + '/auth/logout', {
                     method: 'POST',
@@ -296,8 +425,7 @@ const $ = id => document.getElementById(id),
                     }
                 })
             } finally {
-                token = null;
-                localStorage.removeItem('teknotemu_token');
+                clearSession();
                 window.location.href = '/'
             }
         };

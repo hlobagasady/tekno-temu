@@ -11,6 +11,7 @@
 
 <body class="home-page">@include('partials.site-header')<main>
         <section class="hero">
+            <div class="hero-backgrounds" id="heroBackgrounds" aria-hidden="true"></div>
             <div>
                 <h1>Temukan perangkat<br><em>yang tepat.</em></h1>
                 <p>Pilihan terkurasi dengan spesifikasi jelas. Bandingkan dulu, beli di marketplace pilihan Anda.</p><a class="button" href="#products">Lihat pilihan</a>
@@ -20,20 +21,29 @@
                 <div class="hero-dots" id="heroDots" aria-label="Pilih foto produk"></div>
             </div>
         </section>
-        @include('partials.site-nav')
         <section>
             <div class="section-head">
                 <div>
-                    <p class="eyebrow">PILIH SESUAI KEBUTUHAN</p>
                     <h2>Koleksi pilihan</h2>
                 </div>
             </div>
-            @php($isMarquee = $collections->count() > 3)
+            @php($isMarquee = $collections->isNotEmpty())
             <div class="collections {{ $isMarquee ? 'marquee' : '' }}">
                 <div class="collections-track">
-                    @foreach($collections as $collection)<a href="#products" data-collection="{{ $collection->name }}"><b>{{ $collection->name }}</b><small>{{ $collection->description }}</small></a>@endforeach
+                    @foreach($collections as $collection)
+                    <a class="collection-card collection-card-{{ $loop->iteration }}" href="#products" data-collection="{{ $collection->name }}">
+                        <span class="collection-visual collection-visual-{{ $loop->iteration }}" @if($collection->image_url) style="--collection-image: url('{{ $collection->image_url }}')" @endif aria-hidden="true"></span>
+                        <span class="collection-copy"><small class="collection-kicker">KOLEKSI {{ str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) }}</small><b>{{ $collection->name }}</b><small>{{ $collection->description }}</small><strong>Lihat koleksi <span aria-hidden="true">→</span></strong></span>
+                        <span class="collection-indicator" aria-hidden="true"><i></i><i></i><i></i></span>
+                    </a>
+                    @endforeach
                     @if($isMarquee)
-                        @foreach($collections as $collection)<a href="#products" data-collection="{{ $collection->name }}" aria-hidden="true" tabindex="-1"><b>{{ $collection->name }}</b><small>{{ $collection->description }}</small></a>@endforeach
+                    @foreach($collections as $collection)
+                    <a class="collection-card collection-card-{{ $loop->iteration }}" href="#products" data-collection="{{ $collection->name }}" aria-hidden="true" tabindex="-1">
+                        <span class="collection-visual collection-visual-{{ $loop->iteration }}" @if($collection->image_url) style="--collection-image: url('{{ $collection->image_url }}')" @endif aria-hidden="true"></span>
+                        <span class="collection-copy"><small class="collection-kicker">KOLEKSI {{ str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) }}</small><b>{{ $collection->name }}</b><small>{{ $collection->description }}</small><strong>Lihat koleksi <span aria-hidden="true">→</span></strong></span>
+                    </a>
+                    @endforeach
                     @endif
                 </div>
             </div>
@@ -41,10 +51,10 @@
         <section id="products">
             <div class="section-head">
                 <div>
-                    <p class="eyebrow">KATALOG TERKURASI</p>
                     <h2>Produk pilihan</h2>
                 </div>
             </div>
+            @include('partials.site-nav')
             <div class="grid" id="grid">
                 <p>Memuat produk...</p>
             </div>
