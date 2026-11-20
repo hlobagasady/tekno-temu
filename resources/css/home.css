@@ -439,19 +439,19 @@
         }
 
         .collection-visual-1 {
-            background-image: linear-gradient(90deg, #5363B6cc 0%, #5363B633 50%, #5363B600 100%), url('./hero.jpeg')
+            background-image: linear-gradient(90deg, #5363B6cc 0%, #5363B633 50%, #5363B600 100%), url('/storage/hero/hero.jpeg')
         }
 
         .collection-visual-2 {
-            background-image: linear-gradient(90deg, #26335Fcc 0%, #26335F33 50%, #26335F00 100%), url('./hero2.jfif')
+            background-image: linear-gradient(90deg, #26335Fcc 0%, #26335F33 50%, #26335F00 100%), url('/storage/hero/hero2.jfif')
         }
 
         .collection-visual-3 {
-            background-image: linear-gradient(90deg, #5363B6cc 0%, #5363B633 50%, #5363B600 100%), url('./hero3.jfif')
+            background-image: linear-gradient(90deg, #5363B6cc 0%, #5363B633 50%, #5363B600 100%), url('/storage/hero/hero3.jfif')
         }
 
         .collection-visual-4 {
-            background-image: linear-gradient(90deg, #5363B6cc 0%, #5363B633 50%, #5363B600 100%), url('./hero4.jfif')
+            background-image: linear-gradient(90deg, #5363B6cc 0%, #5363B633 50%, #5363B600 100%), url('/storage/hero/hero4.jfif')
         }
 
         .collection-visual[style*="--collection-image"] {

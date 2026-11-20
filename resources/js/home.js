@@ -1,8 +1,3 @@
-import heroBackground1 from '../css/hero.jpeg';
-import heroBackground2 from '../css/hero2.jfif';
-import heroBackground3 from '../css/hero3.jfif';
-import heroBackground4 from '../css/hero4.jfif';
-
 const grid = document.getElementById('grid');
 const query = document.getElementById('query');
 const loadMore = document.getElementById('loadMore');
@@ -170,7 +165,12 @@ function startHeroBackgroundTimer() {
 }
 
 function initHeroBackgroundSlider() {
-    const images = [heroBackground1, heroBackground2, heroBackground3, heroBackground4];
+    const images = [
+        '/storage/hero/hero.jpeg',
+        '/storage/hero/hero2.jfif',
+        '/storage/hero/hero3.jfif',
+        '/storage/hero/hero4.jfif',
+    ];
 
     heroBackgrounds.innerHTML = images.map((image, index) => `<div class="hero-background${index ? '' : ' active'}" style="background-image: url('${image}')"></div>`).join('');
 
